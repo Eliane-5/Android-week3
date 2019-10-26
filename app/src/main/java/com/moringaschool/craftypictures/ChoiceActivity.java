@@ -3,7 +3,10 @@ package com.moringaschool.craftypictures;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +16,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ChoiceActivity extends AppCompatActivity {
+    private SharedPreferences mSharedPreferences;
+    private String mUserName;
+
     @BindView(R.id.userNameTextView) TextView mUserNameTextView;
     @BindView(R.id.blackAndWhite) Button mBlackAndWhiteButton;
     @BindView(R.id.colorful) Button mColorfulButton;
@@ -53,5 +59,9 @@ public class ChoiceActivity extends AppCompatActivity {
                 Toast.makeText(ChoiceActivity.this, "Enter your location to know which exhibition places are in your area!", Toast.LENGTH_LONG).show();
             }
         });
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mUserName = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
+        Log.d("Shared Pref userName", mUserName);
     }
 }
