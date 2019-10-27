@@ -68,6 +68,11 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         String password = mEnterPasswordEditText.getText().toString().trim();
         String confirmPassword = mConfirmPasswordEditText.getText().toString().trim();
 
+        boolean validEmail = isValidEmail(email);
+        boolean validName = isValidName(name);
+        boolean validPassword = isValidPassword(password, confirmPassword);
+        if (!validEmail || !validName || !validPassword) return;
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -75,8 +80,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                         if (task.isSuccessful()) {
                             Log.d(TAG, "Authentication successful");
                         } else {
-                            Toast.makeText(CreateAccountActivity.this, "please verify if you have inputted correct email and password with at least 6 characters!",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateAccountActivity.this, "Authentication failed!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -109,5 +113,32 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+    private boolean isValidEmail(String email) {
+        boolean isGoodEmail = (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        if (!isGoodEmail) {
+            mEnterEmailEditText.setError("Please enter a valid email address!");
+            return false;
+        }
+        return isGoodEmail;
+    }
+
+    private boolean isValidName(String name) {
+        if (name.equals("")) {
+            mUserNameTextView.setError("Please enter your name!");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidPassword(String password, String confirmPassword) {
+        if (password.length() < 6) {
+            mEnterPasswordEditText.setError("Please create a password containing at least 6 characters");
+            return false;
+        } else if (!password.equals(confirmPassword)) {
+            mEnterPasswordEditText.setError("Passwords do not match");
+            return false;
+        }
+        return true;
     }
 }
