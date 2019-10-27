@@ -24,8 +24,8 @@
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:nextFocusDown="@+id/passwordEditText"
-            android:padding="10dp"
-            android:layout_marginBottom="10dp"
+            android:padding="5dp"
+            android:layout_marginBottom="20dp"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
@@ -37,8 +37,8 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:nextFocusDown="@+id/enterPasswordEditText"
-            android:padding="10dp"
-            android:layout_marginBottom="10dp"
+            android:padding="5dp"
+            android:layout_marginBottom="20dp"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
@@ -50,8 +50,8 @@
             android:hint="Confirm Password"
             android:inputType="textPassword"
             android:nextFocusDown="@+id/enterPasswordEditText"
-            android:padding="10dp"
-            android:layout_marginBottom="10dp"
+            android:padding="5dp"
+            android:layout_marginBottom="30dp"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
@@ -74,7 +74,19 @@
             android:textColor="@color/lifhtGrreen"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="Already have an account? Log in here!"
+            android:text="Already have an account?"
+            android:id="@+id/accountThere"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/lifhtGrreen"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:nextFocusDown="@+id/accountThere"
+            android:text="Click here to Log in!"
             android:id="@+id/backToLoginTextView"
             android:layout_gravity="center_horizontal" />
 

@@ -11,7 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
-    @BindView(R.id.registerTextView) TextView mRegisterNewUserTextView;
+    @BindView(R.id.signUpTextView) TextView mSignUpTextView;
 
 
     @Override
@@ -21,13 +21,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         ButterKnife.bind(this);
 
-        mRegisterNewUserTextView.setOnClickListener(this);
+        mSignUpTextView.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
-        if(v== mRegisterNewUserTextView){
+        if(v== mSignUpTextView){
             Intent intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
             startActivity(intent);
             finish();

@@ -21,11 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:hint="Email"
+            android:hint="Enter your Email here..."
             android:inputType="textEmailAddress"
             android:nextFocusDown="@+id/passwordEditText"
-            android:padding="10dp"
-            android:layout_marginBottom="10dp"
+            android:padding="5dp"
+            android:layout_marginBottom="20dp"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
@@ -35,9 +35,10 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:hint="Password"
+            android:layout_marginBottom="30dp"
             android:inputType="textPassword"
             android:nextFocusDown="@+id/passwordEditText"
-            android:padding="10dp"
+            android:padding="5dp"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
@@ -60,8 +61,20 @@
             android:textColor="@color/lifhtGrreen"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="Don't have an account? Sign up here!"
-            android:id="@+id/registerTextView"
+            android:text="Don't have an account?"
+            android:id="@+id/accountText"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/lifhtGrreen"
+            android:textStyle="bold"
+            android:nextFocusDown="@+id/accountText"
+            android:textSize="15sp"
+            android:text="click here to sign up!"
+            android:id="@+id/signUpTextView"
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
