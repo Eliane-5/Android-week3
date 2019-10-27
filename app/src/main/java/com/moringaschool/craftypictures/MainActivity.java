@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String userName = mUserNameEditText.getText().toString();
                 addToSharedPreferences(userName);
-                Intent intent = new Intent(MainActivity.this, ChoiceActivity.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 intent.putExtra("userName", userName);
                 startActivity(intent);
             }
