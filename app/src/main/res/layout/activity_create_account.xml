@@ -17,6 +17,18 @@
         android:id="@+id/linearLayout">
 
         <EditText
+            android:id="@+id/userNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:hint="Enter your Name here..."
+            android:nextFocusDown="@+id/passwordEditText"
+            android:padding="5dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <EditText
             android:id="@+id/enterEmailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
