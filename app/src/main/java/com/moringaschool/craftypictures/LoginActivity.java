@@ -11,24 +11,26 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
-    @BindView(R.id.registerTextView) TextView mRegisterTextView;
+    @BindView(R.id.registerTextView) TextView mRegisterNewUserTextView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         ButterKnife.bind(this);
 
-        mRegisterTextView.setOnClickListener(this);
+        mRegisterNewUserTextView.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
-        if(v== mRegisterTextView){
+        if(v== mRegisterNewUserTextView){
             Intent intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 }
