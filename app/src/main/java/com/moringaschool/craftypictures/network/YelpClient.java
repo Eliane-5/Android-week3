@@ -1,4 +1,4 @@
-package com.moringaschool.craftypictures;
+package com.moringaschool.craftypictures.network;
 
 import java.io.IOException;
 

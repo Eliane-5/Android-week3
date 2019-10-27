@@ -1,4 +1,4 @@
-package com.moringaschool.craftypictures;
+package com.moringaschool.craftypictures.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.moringaschool.craftypictures.GalleryDetailActivity;
+import com.moringaschool.craftypictures.R;
+import com.moringaschool.craftypictures.models.Business;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;

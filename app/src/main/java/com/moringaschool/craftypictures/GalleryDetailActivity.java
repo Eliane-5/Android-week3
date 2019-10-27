@@ -6,6 +6,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
+import com.moringaschool.craftypictures.adapters.GalleryPagerAdapter;
+import com.moringaschool.craftypictures.models.Business;
+
 import org.parceler.Parcels;
 
 import java.util.List;

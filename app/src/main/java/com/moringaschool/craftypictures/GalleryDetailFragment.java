@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.moringaschool.craftypictures.models.Business;
+import com.moringaschool.craftypictures.models.Category;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;

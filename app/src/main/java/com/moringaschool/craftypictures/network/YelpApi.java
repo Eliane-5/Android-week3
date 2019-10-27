@@ -1,4 +1,6 @@
-package com.moringaschool.craftypictures;
+package com.moringaschool.craftypictures.network;
+
+import com.moringaschool.craftypictures.models.YelpGalleriesSearchResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
