@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +26,7 @@ import butterknife.ButterKnife;
 public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String TAG = CreateAccountActivity.class.getSimpleName();
     private ProgressDialog mAuthProgressDialog;
+    private String mName;
 
     @BindView(R.id.userNameTextView) TextView mUserNameTextView;
     @BindView(R.id.backToLoginTextView) TextView mBackToLoginTextView;
@@ -72,32 +74,34 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     }
 
     private void createNewUser() {
+        mName = mUserNameTextView.getText().toString().trim();
         final String name = mUserNameTextView.getText().toString().trim();
         final String email = mEnterEmailEditText.getText().toString().trim();
         String password = mEnterPasswordEditText.getText().toString().trim();
         String confirmPassword = mConfirmPasswordEditText.getText().toString().trim();
 
         boolean validEmail = isValidEmail(email);
-        boolean validName = isValidName(name);
+        boolean validName = isValidName(mName);
         boolean validPassword = isValidPassword(password, confirmPassword);
         if (!validEmail || !validName || !validPassword) return;
 
         mAuthProgressDialog.show();
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
-                        mAuthProgressDialog.dismiss();
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "Authentication successful");
-                        } else {
-                            Toast.makeText(CreateAccountActivity.this, "Authentication failed!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                mAuthProgressDialog.dismiss();
+
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "Authentication successful");
+                    createFirebaseUserProfile(task.getResult().getUser());
+                } else {
+                    Toast.makeText(CreateAccountActivity.this, "Authentication failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void userAuthStateListener() {
@@ -154,5 +158,21 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
             return false;
         }
         return true;
+    }
+    private void createFirebaseUserProfile(final FirebaseUser user) {
+
+        UserProfileChangeRequest addProfileName = new UserProfileChangeRequest.Builder().setDisplayName(mName).build();
+
+        user.updateProfile(addProfileName)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, user.getDisplayName());
+                        }
+                    }
+
+                });
     }
 }

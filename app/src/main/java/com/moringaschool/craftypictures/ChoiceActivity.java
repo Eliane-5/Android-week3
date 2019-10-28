@@ -1,5 +1,6 @@
 package com.moringaschool.craftypictures;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,11 +25,61 @@ import butterknife.ButterKnife;
 public class ChoiceActivity extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
     private String mUserName;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
-    @BindView(R.id.userNameTextView) TextView mUserNameTextView;
     @BindView(R.id.blackAndWhite) Button mBlackAndWhiteButton;
     @BindView(R.id.colorful) Button mColorfulButton;
     @BindView(R.id.exhibition) Button mExhibitButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_choice);
+        ButterKnife.bind(this);
+
+        Intent intent = getIntent();
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    getSupportActionBar().setTitle("Hello, " + user.getDisplayName() + "!");
+                } else {
+//                    getSupportActionBar().setTitle("Hello, No name entered!");
+                }
+            }
+        };
+
+        mBlackAndWhiteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChoiceActivity.this, BlackAndWhiteActivity.class);
+                startActivity(intent);
+                Toast.makeText(ChoiceActivity.this, "Black and White pictures it is!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        mColorfulButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChoiceActivity.this, ColorfulActivity.class);
+                startActivity(intent);
+                Toast.makeText(ChoiceActivity.this, "Colorful pictures it is!", Toast.LENGTH_LONG).show();
+            }
+        });
+        mExhibitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChoiceActivity.this, LocationActivity.class);
+                startActivity(intent);
+                Toast.makeText(ChoiceActivity.this, "Enter your location to know which exhibition places are in your area!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,43 +107,16 @@ public class ChoiceActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choice);
-        ButterKnife.bind(this);
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
 
-        Intent intent = getIntent();
-        String userName = intent.getStringExtra("userName");
-        mUserNameTextView.setText("Hello "+  userName +" have fun!");
-
-        mBlackAndWhiteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ChoiceActivity.this, BlackAndWhiteActivity.class);
-                startActivity(intent);
-                Toast.makeText(ChoiceActivity.this, "Black and White pictures it is!", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        mColorfulButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ChoiceActivity.this, ColorfulActivity.class);
-                startActivity(intent);
-                Toast.makeText(ChoiceActivity.this, "Colorful pictures it is!", Toast.LENGTH_LONG).show();
-            }
-        });
-        mExhibitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ChoiceActivity.this, LocationActivity.class);
-                startActivity(intent);
-                Toast.makeText(ChoiceActivity.this, "Enter your location to know which exhibition places are in your area!", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mUserName = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
-        Log.d("Shared Pref userName", mUserName);
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 }

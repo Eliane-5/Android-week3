@@ -35,17 +35,6 @@
         android:text="Buy and Sell your artsy pictures at Crafty Pictures.\n \n Provide your name and click on the start button to continue..."
         android:textSize="15sp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/nameEditText"
-        android:layout_above="@+id/startButton"
-        android:layout_marginBottom="30dp"
-        android:background="@color/white"
-        android:padding="7dp"
-        android:hint="Please enter your name here"
-        android:layout_centerHorizontal="true" />
-
     <Button
         android:id="@+id/startButton"
         android:layout_width="wrap_content"

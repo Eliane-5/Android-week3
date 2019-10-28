@@ -61,6 +61,7 @@ public class GalleriesArrayAdapter extends RecyclerView.Adapter<GalleriesArrayAd
             mContext = itemView.getContext();
             itemView.setOnClickListener(this);
         }
+
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
@@ -69,6 +70,7 @@ public class GalleriesArrayAdapter extends RecyclerView.Adapter<GalleriesArrayAd
             intent.putExtra("galleries", Parcels.wrap(mGalleries));
             mContext.startActivity(intent);
         }
+
         public void bindGallery(Business gallery) {
             Picasso.get().load(gallery.getImageUrl()).into(mGalleryImageView);
             mNameTextView.setText(gallery.getName());

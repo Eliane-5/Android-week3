@@ -11,15 +11,6 @@
         android:src="@drawable/homebackground"
         android:scaleType="centerCrop" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello"
-        android:id="@+id/userNameTextView"
-        android:textSize="20sp"
-        android:textColor="@color/darkgrey"
-        android:textStyle="bold"/>
-
     <Button
         android:id="@+id/blackAndWhite"
         android:layout_width="wrap_content"
